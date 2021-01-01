@@ -3,12 +3,14 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"path"
+	"runtime"
+	"strconv"
 )
 
 func main() {
-	dat, err := ioutil.ReadFile("1.in")
-	check(err)
-	solveOne(dat)
+	dat := getInput(1, false)
+	solve(dat)
 }
 
 func check(e error) {
@@ -17,17 +19,34 @@ func check(e error) {
 	}
 }
 
-func solveOne(dat []byte) {
+func getInput(day int, isTest bool) []byte {
+	_, currentFileName, _, _ := runtime.Caller(0)
+	filePath := path.Dir(currentFileName)
+	var inputFileName string
+
+	if isTest {
+		inputFileName = strconv.Itoa(day) + "_test" + ".in"
+	} else {
+		inputFileName = strconv.Itoa(day) + ".in"
+	}
+
+	dat, err := ioutil.ReadFile(filePath + "/" + inputFileName)
+	check(err)
+	return dat
+}
+
+func solve(dat []byte) {
 	ans := 0
 	ans2 := 0
-	for i, c := range string(dat) {
-		if string(c) == "(" {
+
+	for index, char := range string(dat) {
+		if string(char) == "(" {
 			ans++
-		} else if string(c) == ")" {
+		} else if string(char) == ")" {
 			ans--
 		}
 		if ans == -1 && ans2 == 0 {
-			ans2 = i + 1
+			ans2 = index + 1
 		}
 	}
 
