@@ -1,16 +1,17 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"path"
 	"runtime"
 	"strconv"
 )
 
 func main() {
-	dat := getInput(1, false)
-	solve(dat)
+	input := getInput(1, false)
+	solve(input)
 }
 
 func check(e error) {
@@ -19,7 +20,7 @@ func check(e error) {
 	}
 }
 
-func getInput(day int, isTest bool) []byte {
+func getInput(day int, isTest bool) []string {
 	_, currentFileName, _, _ := runtime.Caller(0)
 	filePath := path.Dir(currentFileName)
 	var inputFileName string
@@ -30,16 +31,24 @@ func getInput(day int, isTest bool) []byte {
 		inputFileName = strconv.Itoa(day) + ".in"
 	}
 
-	dat, err := ioutil.ReadFile(filePath + "/" + inputFileName)
+	file, err := os.Open(filePath + "/" + inputFileName)
 	check(err)
-	return dat
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	result := []string{}
+	for scanner.Scan() {
+		result = append(result, scanner.Text())
+	}
+
+	return result
 }
 
-func solve(dat []byte) {
+func solve(input []string) {
 	ans := 0
 	ans2 := 0
 
-	for index, char := range string(dat) {
+	for index, char := range input[0] {
 		if string(char) == "(" {
 			ans++
 		} else if string(char) == ")" {
