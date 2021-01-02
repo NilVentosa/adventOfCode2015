@@ -1,47 +1,14 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"path"
-	"runtime"
-	"strconv"
+
+	aoc "github.com/nilventosa/adventOfCode2015"
 )
 
 func main() {
-	input := getInput(1, false)
+	input := aoc.GetInput(1, false)
 	solve(input)
-}
-
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
-
-func getInput(day int, isTest bool) []string {
-	_, currentFileName, _, _ := runtime.Caller(0)
-	filePath := path.Dir(currentFileName)
-	var inputFileName string
-
-	if isTest {
-		inputFileName = strconv.Itoa(day) + "_test" + ".in"
-	} else {
-		inputFileName = strconv.Itoa(day) + ".in"
-	}
-
-	file, err := os.Open(filePath + "/" + inputFileName)
-	check(err)
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	result := []string{}
-	for scanner.Scan() {
-		result = append(result, scanner.Text())
-	}
-
-	return result
 }
 
 func solve(input []string) {
