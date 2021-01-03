@@ -1,4 +1,4 @@
-package adventOfCode2015
+package adventofcode
 
 import (
 	"bufio"
@@ -46,4 +46,14 @@ func Min(values []int) int {
 		}
 	}
 	return min
+}
+
+func Max(values []int) int {
+	max := 0
+	for i, e := range values {
+		if i == 0 || e > max {
+			max = e
+		}
+	}
+	return max
 }
