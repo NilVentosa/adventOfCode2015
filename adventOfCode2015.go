@@ -8,12 +8,14 @@ import (
 	"strconv"
 )
 
+// Given a error panics if the error is not nil
 func Check(e error) {
 	if e != nil {
 		panic(e)
 	}
 }
 
+// Given the number of day and bool if it or not a test returns a slice of the input lines
 func GetInput(day int, isTest bool) []string {
 	_, currentFileName, _, _ := runtime.Caller(0)
 	filePath := path.Dir(currentFileName)
@@ -38,6 +40,7 @@ func GetInput(day int, isTest bool) []string {
 	return result
 }
 
+// Given a slice of ints returns the min value
 func Min(values []int) int {
 	min := 0
 	for i, e := range values {
@@ -48,6 +51,7 @@ func Min(values []int) int {
 	return min
 }
 
+// Given a slice of ints returns the max value
 func Max(values []int) int {
 	max := 0
 	for i, e := range values {
@@ -58,6 +62,7 @@ func Max(values []int) int {
 	return max
 }
 
+// Given a slice of strings removes all duplicates
 func ExtractUniques(input []string) []string {
 	seen := make(map[string]struct{}, len(input))
 	j := 0
@@ -72,7 +77,7 @@ func ExtractUniques(input []string) []string {
 	return input[:j]
 }
 
-
+// Given a slice of strings returns a slice of all possible permutations
 func Permutate(input []string) [][]string {
 	var permute func(int, []string)
 	result := [][]string{}
