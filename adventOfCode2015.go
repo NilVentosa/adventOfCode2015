@@ -79,27 +79,26 @@ func ExtractUniques(input []string) []string {
 
 // Given a slice of strings returns a slice of all possible permutations
 func Permutate(input []string) [][]string {
-	var permute func(int, []string)
 	result := [][]string{}
+	var helper func(int, []string)
 
-
-	permute = func(k int, input []string) {
+	helper = func(k int, input []string) {
 		if k == 1 {
 			part := make([]string, len(input))
 			copy(part, input)
 			result = append(result, part)
 		} else {
-			permute(k-1, input)
+			helper(k-1, input)
 			for i := 0; i < k-1; i++ {
 				if k % 2 == 1 {
 					input[0], input[k-1] = input[k-1], input[0]
 				} else {
 					input[i], input[k-1] = input[k-1], input[i]
 				}
-				permute(k-1, input)
+				helper(k-1, input)
 			}
 		}
 	}
-	permute(len(input), input)
+	helper(len(input), input)
 	return result
 }
