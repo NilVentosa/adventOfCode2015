@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	aoc "github.com/nilventosa/adventOfCode2015"
 	"strconv"
+
+	aoc "github.com/nilventosa/adventOfCode2015"
 )
 
 var isTest bool = false
@@ -23,7 +24,6 @@ func solveOne() {
 		lit += len(line)
 		m, _ := strconv.Unquote(line)
 		mem += len(m)
-
 	}
 
 	fmt.Println(lit - mem)
